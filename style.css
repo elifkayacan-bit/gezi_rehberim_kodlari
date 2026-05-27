@@ -1,0 +1,376 @@
+/* Göz Yormayan Soft Renk Paleti */
+
+:root {
+    --bg-color: #f4f6f8;
+    --navbar-bg: #1e272e; /* Koyu mat lacivert/gri */
+    --text-color: #2c3e50;
+    --accent-blue: #3498db;
+    --accent-orange: #f39c12;
+    --card-bg: #ffffff;
+    --border-color: #dcdde1;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Roboto, Helvetica, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+/* Modern Navbar Tasarımı */
+.modern-navbar {
+    background-color: var(--navbar-bg);
+    position: relative;
+    z-index: 999;
+}
+
+.navbar-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.navbar-logo {
+    color: #ffffff;
+    font-size: 24px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+/* Menü ve Çoklu Açılır (Dropdown) Yapısı */
+.navbar-menu {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-menu > li {
+    position: relative;
+}
+
+.navbar-menu a {
+    color: #cbd5e1;
+    padding: 15px 20px;
+    display: block;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 15px;
+    transition: all 0.3s;
+}
+
+.navbar-menu a:hover {
+    color: #ffffff;
+}
+
+/* Birinci Derece Açılır Menü (Bölgeler / Ülkeler) */
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: var(--navbar-bg);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    min-width: 200px;
+    display: none;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+.dropdown-menu li {
+    position: relative;
+}
+
+.navbar-menu > li:hover .dropdown-menu {
+    display: block;
+}
+
+/* İkinci Derece Açılır Menü (Şehirler) */
+.sub-dropdown-menu {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    background-color: #2f3640;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    min-width: 180px;
+    display: none;
+}
+
+.dropdown-menu li:hover .sub-dropdown-menu {
+    display: block;
+}
+
+/* Sağ Üst Alan Butonları */
+.navbar-sag-alan {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.navbar-gp-butonu {
+    background-color: var(--accent-orange);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.navbar-profil-butonu {
+    background-color: var(--accent-blue);
+    color: white;
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+/* Fotoğraf Slider Alanı */
+.slider-container {
+    width: 100%;
+    max-width: 1200px;
+    height: 400px;
+    margin: 20px auto;
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.slider-wrapper {
+    display: flex;
+    width: 500%;
+    height: 100%;
+    transition: transform 0.8s ease-in-out;
+}
+
+.slide {
+    width: 20%;
+    height: 100%;
+    position: relative;
+}
+
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.slide-text {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+    color: white;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 15px 25px;
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+/* Sosyal Akış ve Gönderi Kartları Tasarımı */
+.main-layout {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.feed-title {
+    font-size: 22px;
+    color: var(--text-color);
+    margin-bottom: 20px;
+    border-left: 4px solid var(--accent-blue);
+    padding-left: 10px;
+}
+
+.post-card {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    margin-bottom: 30px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+}
+
+.post-header {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    gap: 12px;
+}
+
+.post-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.post-user-info b {
+    display: block;
+    color: #1e272e;
+}
+
+.post-user-info span {
+    font-size: 12px;
+    color: #7f8c8d;
+}
+
+.post-image {
+    width: 100%;
+    max-height: 450px;
+    object-fit: cover;
+}
+
+.post-body {
+    padding: 20px;
+}
+
+.post-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #f1f2f6;
+}
+
+.action-btn {
+    background: none;
+    border: none;
+    color: #57606f;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.action-btn:hover {
+    color: var(--accent-blue);
+}
+/* Gezginlerden Kareler Bölümü Kart Tasarımları */
+.gezginler-konteyner {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.gezginler-baslik {
+    font-size: 20px;
+    color: #1e293b;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+}
+
+.gezginler-grid-sistem {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.modern-gezi-kart {
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    border: 1px solid #e2e8f0;
+    transition: transform 0.2s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.modern-gezi-kart:hover {
+    transform: translateY(-5px);
+}
+
+.modern-gezi-kart .kart-resim-alani {
+    width: 100%;
+    height: 160px;
+    overflow: hidden;
+    background-color: #f1f5f9;
+}
+
+.modern-gezi-kart .kart-resim-alani img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.modern-gezi-kart .kart-icerik {
+    padding: 12px 15px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.modern-gezi-kart .sehir-konum {
+    font-size: 13px;
+    font-weight: 600;
+    color: #334155;
+    text-transform: capitalize;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 6px;
+}
+
+.modern-gezi-kart .sehir-konum i {
+    color: #e11d48;
+}
+
+.modern-gezi-kart .gezi-ozet-yazi {
+    font-size: 12px;
+    color: #64748b;
+    line-height: 1.4;
+    margin: 0 0 12px 0;
+    display: -webkit-box;
+    webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    height: 34px;
+}
+
+.modern-gezi-kart .kart-alt-bilgi {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 10px;
+    border-top: 1px solid #f1f5f9;
+}
+
+.modern-gezi-kart .kalp-buton {
+    background: none;
+    border: none;
+    color: #94a3b8;
+    font-size: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-weight: 500;
+    padding: 0;
+    text-decoration: none;
+}
+
+.modern-gezi-kart .kalp-buton:hover {
+    color: #e11d48;
+}
+
+.modern-gezi-kart .yazar-adi {
+    font-size: 11px;
+    color: #94a3b8;
+}

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ulaşım ve Bilet Rehberi - GeziRehberim</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <nav class="navbar">
+            <div class="logo">GeziRehberim</div>
+            <ul class="nav-links">
+                <li><a href="index.html"><i class="fa-solid fa-house"></i> Ana Sayfa</a></li>
+                <li><a href="onerilen_yerler.html"><i class="fa-solid fa-compass"></i> Önerilen Yerler</a></li>
+                <li><a href="ulasim.html" class="active"><i class="fa-solid fa-bus"></i> Ulaşım</a></li>
+                <li><a href="#"><i class="fa-solid fa-map-location-dot"></i> Türkiye</a></li>
+                <li><a href="#"><i class="fa-solid fa-earth-americas"></i> Yurt Dışı</a></li>
+            </ul>
+            <div class="nav-auth">
+                <div class="gp-counter"><i class="fa-solid fa-star"></i> 0 GP</div>
+                <a href="giris.html" class="btn-login">Giriş Yap</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="sayfa-baslik">
+            <h1>Ulaşım ve Bilet Satış Noktaları</h1>
+            <p>Keşfedeceğiniz rotaya en uygun seyahat seçeneğini bulun ve resmi kanallardan biletinizi güvenle alın.</p>
+        </section>
+
+        <section class="ulasim-grid">
+            
+            <div class="ulasim-kart">
+                <div class="ulasim-ikon-kutusu tren-renk">
+                    <i class="fa-solid fa-train"></i>
+                </div>
+                <div class="ulasim-icerik">
+                    <h3>Demiryolu Ulaşımı (TCDD)</h3>
+                    <p>Türkiye'nin dört bir yanına uzanan Yüksek Hızlı Tren (YHT) ve nostaljik ana hat trenleri (Doğu Ekspresi, Van Gölü Ekspresi vb.) ile doğanın tadını çıkararak seyahat edebilirsiniz.</p>
+                    <div class="ulasim-not">
+                        <i class="fa-solid fa-circle-exclamation"></i> <strong>Bilgi:</strong> Tren biletlerinizi TCDD Taşımacılık resmi sitesinden komisyonsuz bir şekilde güvenle satın alabilirsiniz.
+                    </div>
+                    <a href="https://ebilet.tcddtasimacilik.gov.tr/" target="_blank" class="btn-bilet tren-btn">
+                        TCDD Tren Bileti Al <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="ulasim-kart">
+                <div class="ulasim-ikon-kutusu ucak-renk">
+                    <i class="fa-solid fa-plane"></i>
+                </div>
+                <div class="ulasim-icerik">
+                    <h3>Havayolu Ulaşımı</h3>
+                    <p>Uzak mesafelerdeki saklı cennetlere vakit kaybetmeden, hızlı ve konforlu bir şekilde ulaşmak istiyorsanız havayolu şirketlerinin uçuş ağlarını inceleyebilirsiniz.</p>
+                    <div class="ulasim-not">
+                        <i class="fa-solid fa-circle-exclamation"></i> <strong>Bilgi:</strong> Türk Hava Yolları (THY) veya Pegasus gibi havayolu firmalarının resmi sitelerinden uçak biletinizi alabilirsiniz.
+                    </div>
+                    <a href="https://www.turkishairlines.com/" target="_blank" class="btn-bilet ucak-btn">
+                        THY Uçak Bileti Al <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="ulasim-kart">
+                <div class="ulasim-ikon-kutusu otobus-renk">
+                    <i class="fa-solid fa-bus-simple"></i>
+                </div>
+                <div class="ulasim-icerik">
+                    <h3>Karayolu Ulaşımı (Otobüs)</h3>
+                    <p>Uçak veya trenin direkt gitmediği daha küçük ilçelere, köy yakınlarındaki doğa harikalarına ulaşmanın en yaygın ve kolay yolu şehirlerarası otobüs seferleridir.</p>
+                    <div class="ulasim-not">
+                        <i class="fa-solid fa-circle-exclamation"></i> <strong>Bilgi:</strong> Yüzlerce otobüs firmasının seferlerini karşılaştırmak ve bilet almak için en popüler platformları kullanabilirsiniz.
+                    </div>
+                    <a href="https://www.obilet.com/" target="_blank" class="btn-bilet otobus-btn">
+                        Obilet ile Otobüs Bileti Al <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ulasim-kart">
+                <div class="ulasim-ikon-kutusu araba-renk">
+                    <i class="fa-solid fa-car"></i>
+                </div>
+                <div class="ulasim-icerik">
+                    <h3>Araç Kiralama (Rent a Car)</h3>
+                    <p>Toplu taşımanın doğrudan ulaşamadığı saklı kalmış kanyonlara, antik kentlere ve doğa harikalarına kendi temponuzda, özgürce ulaşmak için araç kiralayabilirsiniz.</p>
+                    <div class="ulasim-not">
+                        <i class="fa-solid fa-circle-exclamation"></i> <strong>Bilgi:</strong> Havalimanlarından veya şehir merkezlerinden yüzlerce kiralama şirketinin fiyatlarını karşılaştırıp en uygun aracı seçebilirsiniz.
+                    </div>
+                    <a href="https://www.rentalcars.com/" target="_blank" class="btn-bilet araba-btn">
+                        Araç Fiyatlarını Karşılaştır <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 GeziRehberim. Tüm Hakları Saklıdır.</p>
+    </footer>
+
+</body>
+</html>
