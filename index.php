@@ -393,5 +393,49 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 </script>
+<footer style="background: #1e272e; color: #d2dae2; text-align: center; padding: 25px; font-family: 'Poppins', sans-serif; margin-top: 60px; border-top: 4px solid #3498db;">
+    <p style="margin: 0; font-size: 14px; letter-spacing: 0.5px; font-weight: 500;">
+        &copy; 2026 GeziRehberim. Bu sitenin tüm hakları saklıdır.
+    </p>
+</footer>
+
+<div id="modernLoginModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.75); z-index: 99999; justify-content: center; align-items: center; font-family: 'Poppins', sans-serif; backdrop-filter: blur(4px);">
+    <div style="background: #ffffff; padding: 40px 30px; border-radius: 20px; width: 90%; max-width: 420px; text-align: center; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); animation: modernPopup 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);">
+        <div style="width: 80px; height: 80px; background: #fff5f5; color: #ff4757; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px auto; font-size: 36px; border: 2px solid #ffe3e3;">
+            <i class="fas fa-user-lock"></i>
+        </div>
+        <h3 style="margin-bottom: 10px; color: #1e272e; font-size: 24px; font-weight: 700;">Oturum Açmalısınız</h3>
+        <p style="color: #57606f; font-size: 15px; margin-bottom: 30px; line-height: 1.6;">Rotalarla etkileşime geçmek ve gezginlerin paylaşımlarını keşfetmek için lütfen önce giriş yapın.</p>
+        
+        <div style="display: flex; gap: 12px; justify-content: center;">
+            <a href="giris.php" style="background: #3498db; color: #fff; padding: 14px 30px; border-radius: 10px; text-decoration: none; font-weight: 600; font-size: 15px; box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3); transition: all 0.2s;">Giriş Yap</a>
+            <button onclick="document.getElementById('modernLoginModal').style.display='none'" style="background: #f1f2f6; color: #57606f; padding: 14px 30px; border: none; border-radius: 10px; font-weight: 600; font-size: 15px; cursor: pointer; transition: all 0.2s;">Kapat</button>
+        </div>
+    </div>
+</div>
+
+<style>
+@keyframes modernPopup {
+    from { transform: scale(0.85); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+</style>
+
+<?php
+// Eğer kodlarının yukarısında bir yerde alert bastırıyorsan, bu küçük script onu yakalar ve bizim modern modala çevirir:
+echo "<script>
+    // Tarayıcının orijinal alert fonksiyonunu kendi kodumuzla değiştiriyoruz
+    window.alert = function(mesaj) {
+        if(mesaj.includes('giriş') || mesaj.includes('Giriş')) {
+            var modal = document.getElementById('modernLoginModal');
+            if(modal) {
+                modal.style.setProperty('display', 'flex', 'important');
+            }
+        } else {
+            console.log('Standart Mesaj: ' + mesaj);
+        }
+    };
+</script>";
+?>
 </body>
 </html>
