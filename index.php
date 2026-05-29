@@ -228,100 +228,130 @@ if (!empty($oturum_acan)) {
         </div>
     </div>
 
-    <main class="kesif-ana-kapsam">
-        <div class="bolum-basligi">
-            <i class="fas fa-map-pin" style="color: #e11d48;"></i> Öne Çıkan Gezi Rotaları
-        </div>
-        <div class="kesif-izgara-alani">
-            <?php
-            $ana_sayfa_sorgu = mysqli_query($conn, "SELECT * FROM gonderiler ORDER BY id DESC LIMIT 4");
-            if ($ana_sayfa_sorgu && mysqli_num_rows($ana_sayfa_sorgu) > 0) {
-                while($row = mysqli_fetch_assoc($ana_sayfa_sorgu)) {
-                    $gorsel = !empty($row['gorsel']) ? $row['gorsel'] : 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600';
-                    $gonderi_id = $row['id'];
-                    $current_likes = isset($row['begeni_sayisi']) ? $row['begeni_sayisi'] : 0;
-                    
-                    // Önceden beğenilmişse 'aktif' sınıfı ve dolu kalp (fas), beğenilmemişse boş kalp (far) gelir
-                    $is_liked = in_array($gonderi_id, $begenilenler);
-                    $btn_class = $is_liked ? 'kalp-btn aktif' : 'kalp-btn';
-                    $icon_class = $is_liked ? 'fas fa-heart' : 'far fa-heart';
-                    ?>
-                    <div class="tasarim-kesif-kart">
-                        <div class="kart-alt-detay">
-                            <img src="<?php echo htmlspecialchars($gorsel); ?>" alt="Rota" style="border-radius:8px; margin-bottom:12px;">
-                            <div class="kart-konum-baslik">
-                                <i class="fas fa-map-marker-alt" style="color:#ef4444;"></i> <?php echo htmlspecialchars($row['baslik']); ?>
-                            </div>
-                            <a href="profil.php?user=<?php echo urlencode($row['username']); ?>" class="kart-profil-link">
-                                @<?php echo htmlspecialchars($row['username']); ?>
-                            </a>
-                        </div>
-                        
-                        <div class="kalp-alani">
-                            <button class="<?php echo $btn_class; ?>" data-id="<?php echo $gonderi_id; ?>" onclick="kalpTetikle(this)">
-                                <i class="<?php echo $icon_class; ?>"></i>
-                                <span class="kalp-sayi"><?php echo $current_likes; ?></span>
-                            </button>
-                        </div>
-                    </div>
-                    <?php
+  <main class="kesif-ana-kapsam">
+    <div class="bolum-basligi">
+        <i class="fas fa-map-pin" style="color: #e11d48;"></i> Öne Çıkan Gezi Rotaları
+    </div>
+    <div class="kesif-izgara-alani">
+        <?php
+        // Sorguyu senin begeniler tablosuna göre güncelledik
+        $ana_sayfa_sorgu = mysqli_query($conn, "SELECT g.*, 
+            (SELECT COUNT(*) FROM begeniler WHERE begeniler.gonderi_id = g.id) as toplam_begeni 
+            FROM gonderiler g ORDER BY g.id DESC LIMIT 4");
+
+        if ($ana_sayfa_sorgu && mysqli_num_rows($ana_sayfa_sorgu) > 0) {
+            while($row = mysqli_fetch_assoc($ana_sayfa_sorgu)) {
+                $gorsel = !empty($row['gorsel']) ? $row['gorsel'] : 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600';
+                $gonderi_id = $row['id'];
+                $current_likes = isset($row['toplam_begeni']) ? $row['toplam_begeni'] : 0;
+                $aciklama = isset($row['aciklama']) ? $row['aciklama'] : ''; 
+
+                $is_liked = false;
+                $icon_class = 'far fa-heart'; 
+                $btn_style = '';              
+
+                // Eğer giriş yapılmışsa kullanıcının adına göre kalbin rengini belirle
+                if (isset($_SESSION['username'])) {
+                    $current_user = mysqli_real_escape_string($conn, $_SESSION['username']);
+                    $check_like = mysqli_query($conn, "SELECT * FROM begeniler WHERE username = '$current_user' AND gonderi_id = $gonderi_id");
+                    if ($check_like && mysqli_num_rows($check_like) > 0) {
+                        $is_liked = true;
+                        $icon_class = 'fas fa-heart'; 
+                        $btn_style = 'color: #ef4444;'; 
+                    }
                 }
-            } else {
-                echo '<div style="grid-column:1/-1; text-align:center; color:#64748b;">Henüz rota eklenmemiş.</div>';
+                ?>
+                
+                <div class="tasarim-kesif-kart">
+                    <div class="kart-alt-detay">
+                        <img src="<?php echo htmlspecialchars($gorsel); ?>" alt="Rota" style="border-radius:8px; margin-bottom:12px; width:100%; height:auto;">
+                        <div class="kart-konum-baslik">
+                            <i class="fas fa-map-marker-alt" style="color:#ef4444;"></i> <?php echo htmlspecialchars($row['baslik']); ?>
+                        </div>
+                        <?php if(!empty($aciklama)): ?>
+                            <div class="kart-aciklama" style="font-size: 13px; color: #4b5563; margin: 6px 0 10px 0; line-height: 1.4;">
+                                <?php echo htmlspecialchars($aciklama); ?>
+                            </div>
+                        <?php endif; ?>
+                        <a href="profil.php?user=<?php echo urlencode($row['username']); ?>" class="kart-profil-link">
+                            @<?php echo htmlspecialchars($row['username']); ?>
+                        </a>
+                    </div>
+                    
+                    <div class="kalp-alani">
+                        <button class="kalp-btn" data-id="<?php echo $gonderi_id; ?>" onclick="kalpTetikle(this)" style="background: none; border: none; cursor: pointer; padding: 5px 0; display: flex; align-items: center;">
+                            <i class="<?php echo $icon_class; ?>" style="<?php echo $btn_style; ?> font-size: 20px;"></i>
+                            <span class="kalp-sayi" id="like-count-<?php echo $gonderi_id; ?>" style="margin-left: 5px;">
+                                <?php echo (int)$current_likes; ?>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+                
+                <?php
             }
-            ?>
-        </div>
-    </main>
+        } else {
+            echo '<div style="grid-column:1/-1; text-align:center; color:#64748b;">Henüz rota eklenmemiş.</div>';
+        }
+        ?>
+    </div>
+</main>
 
 <script>
 // SAYFAYI YENİLEMEDEN ANLIK ARTTIRAN VE AZALTAN POPÜLER KALP MOTORU (AJAX)
-function kalpTetikle(btn) {
-    const oturumAcan = "<?php echo $oturum_acan; ?>";
-    if (oturumAcan === "") {
-        alert("Lütfen önce giriş yapın!");
-        return;
+
+function kalpTetikle(button) {
+    const oturumAcikMi = <?php echo isset($_SESSION['username']) ? 'true' : 'false'; ?>;
+    
+    if (!oturumAcikMi) {
+        window.location.href = 'giris.php';
+        return; 
     }
 
-    const gonderiId = btn.getAttribute('data-id');
-    const ikon = btn.querySelector('i');
-    const sayiElementi = btn.querySelector('.kalp-sayi');
-    let mevcutSayi = parseInt(sayiElementi.innerText) || 0;
+    const gonderiId = button.getAttribute('data-id');
+    const sayacElement = document.getElementById('like-count-' + gonderiId);
+    const ikon = button.querySelector('i');
+    
+    const eskiSayi = parseInt(sayacElement.innerText) || 0;
+    const zatenBegenilmis = ikon.classList.contains('fas');
 
-    if (!btn.classList.contains('aktif')) {
-        // İlk defa beğeniliyor: Kırmızı yap, kalbi doldur, sayıyı anında artır
-        btn.classList.add('aktif');
-        ikon.className = 'fas fa-heart';
-        sayiElementi.innerText = mevcutSayi + 1;
+    if (zatenBegenilmis) {
+        ikon.className = 'far fa-heart'; 
+        ikon.style.color = ''; 
+        sayacElement.innerText = Math.max(0, eskiSayi - 1);
     } else {
-        // Kalpten çıkılıyor: Kırmızılığı kaldır, kalbin içini boşalt, sayıyı anında düşür
-        btn.classList.remove('aktif');
-        ikon.className = 'far fa-heart';
-        sayiElementi.innerText = mevcutSayi - 1;
+        ikon.className = 'fas fa-heart'; 
+        ikon.style.color = '#ef4444'; 
+        sayacElement.innerText = eskiSayi + 1;
     }
 
-    // Veritabanını arkada sessizce güncelle (Sayfa Yenilenmez)
-    fetch('begeni_yap.php', {
+    const params = new URLSearchParams();
+    params.append('gonderi_id', gonderiId);
+
+    // İSTEK DOĞRUDAN begen.php DOSYANIZA GİDİYOR
+    fetch('begen.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: 'gonderi_id=' + gonderiId
+        body: params.toString()
     })
     .then(response => response.json())
     .then(data => {
         if (data.status === 'success') {
-            sayiElementi.innerText = data.new_likes;
-            if (data.action === 'liked') {
-                btn.classList.add('aktif');
+            sayacElement.innerText = data.likes;
+            if (data.action === 'eklendi') {
                 ikon.className = 'fas fa-heart';
+                ikon.style.color = '#ef4444';
             } else {
-                btn.classList.remove('aktif');
                 ikon.className = 'far fa-heart';
+                ikon.style.color = '';
             }
         } else {
-            alert(data.message || "Bir hata oluştu.");
-            window.location.reload();
+            alert(data.message);
         }
     })
-    .catch(err => console.error("Hata:", err));
+    .catch(err => {
+        console.error("Hata:", err);
+    });
 }
 
 // CANLI ARAMA MOTORU
